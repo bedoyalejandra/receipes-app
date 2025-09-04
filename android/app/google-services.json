@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "996200067809",
+    "project_id": "receipes-app-62",
+    "storage_bucket": "receipes-app-62.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996200067809:android:e2bab4e20376218e44fda0",
+        "android_client_info": {
+          "package_name": "com.example.receipes_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV3I9aZfI_fi0ZPrAWXFB9doAyP1yUC_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996200067809:android:4617a2cc5ac347d544fda0",
+        "android_client_info": {
+          "package_name": "com.example.receipes_app_02"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV3I9aZfI_fi0ZPrAWXFB9doAyP1yUC_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
