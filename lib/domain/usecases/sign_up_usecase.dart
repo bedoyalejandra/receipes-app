@@ -3,11 +3,11 @@ import 'package:receipes_app_02/domain/entities/auth_result.dart';
 import 'package:receipes_app_02/domain/repositories/auth_repository.dart';
 import 'package:receipes_app_02/domain/repositories/user_repository.dart';
 
-class RegisterUsecase {
+class SignUpUsecase {
   final AuthRepository _authRepository;
   final UserRepository _userRepository;
 
-  RegisterUsecase(this._authRepository, this._userRepository);
+  SignUpUsecase(this._authRepository, this._userRepository);
 
   Future<AuthResult> execute({
     required String name,
