@@ -9,7 +9,7 @@ class PrimaryButton extends StatelessWidget {
     this.backgroundColor = CustomColors.primaryColor,
     this.verticalPadding = 16,
   }) : super(key: key);
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String title;
   final Color? backgroundColor;
   final double verticalPadding;

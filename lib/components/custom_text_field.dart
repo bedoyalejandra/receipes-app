@@ -8,6 +8,7 @@ class CustomTextField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.controller,
     this.placeholder,
+    this.validator,
   }) : super(key: key);
   
   String label;
@@ -15,6 +16,7 @@ class CustomTextField extends StatefulWidget {
   TextInputType keyboardType;
   TextEditingController? controller;
   String? placeholder;
+  String? Function(String?)? validator;
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -41,10 +43,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
       children: [
         Text(widget.label, style: Theme.of(context).textTheme.bodyLarge),
         SizedBox(height: 8),
-        TextField(
+        TextFormField(
           obscureText: _isObscured,
           controller: widget.controller,
           keyboardType: widget.keyboardType,
+          validator: widget.validator,
           decoration: InputDecoration(
             labelText: widget.placeholder,
             labelStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14),

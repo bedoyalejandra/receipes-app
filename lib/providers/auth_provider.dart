@@ -76,7 +76,7 @@ class AuthProvider extends ChangeNotifier {
     required String name,
     required String email,
     required String password,
-    required String confirmPassworf,
+    required String confirmPassword,
   }) async {
     _setState(AuthStatus.loading);
 
@@ -84,7 +84,7 @@ class AuthProvider extends ChangeNotifier {
       name: name,
       email: email,
       password: password,
-      confirmPassworf: confirmPassworf,
+      confirmPassword: confirmPassword,
     );
 
     if (result.isSuccess) {

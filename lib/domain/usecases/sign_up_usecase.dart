@@ -13,16 +13,16 @@ class SignUpUsecase {
     required String name,
     required String email,
     required String password,
-    required String confirmPassworf,
+    required String confirmPassword,
   }) async {
     if (name.isEmpty ||
         email.isEmpty ||
         password.isEmpty ||
-        confirmPassworf.isEmpty) {
+        confirmPassword.isEmpty) {
       return AuthResult.failure('All fields are required');
     }
 
-    if (EmailValidator.validate(email)) {
+    if (EmailValidator.validate(email.trim())) {
       return AuthResult.failure('Please enter a valid email address');
     }
 
@@ -30,7 +30,7 @@ class SignUpUsecase {
       return AuthResult.failure('Password must be at least 6 characters long');
     }
 
-    if (password != confirmPassworf) {
+    if (password != confirmPassword) {
       return AuthResult.failure('Passwords do not match');
     }
 
