@@ -1,4 +1,4 @@
-import 'package:email_validator/email_validator.dart';
+import 'package:receipes_app_02/constants/validators.dart';
 import 'package:receipes_app_02/domain/entities/auth_result.dart';
 import 'package:receipes_app_02/domain/repositories/auth_repository.dart';
 import 'package:receipes_app_02/domain/repositories/user_repository.dart';
@@ -22,7 +22,7 @@ class SignUpUsecase {
       return AuthResult.failure('All fields are required');
     }
 
-    if (EmailValidator.validate(email.trim())) {
+    if (!isValidEmail(email)) {
       return AuthResult.failure('Please enter a valid email address');
     }
 

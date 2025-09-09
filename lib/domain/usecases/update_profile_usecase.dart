@@ -1,4 +1,4 @@
-import 'package:email_validator/email_validator.dart';
+import 'package:receipes_app_02/constants/validators.dart';
 import 'package:receipes_app_02/domain/entities/user_entity.dart';
 import 'package:receipes_app_02/domain/repositories/user_repository.dart';
 
@@ -21,7 +21,7 @@ class UpdateProfileUsecase {
         return 'Email is required';
       }
 
-      if (EmailValidator.validate(email)) {
+      if (!isValidEmail(email)) {
         return 'Please enter a valid email address';
       }
 
