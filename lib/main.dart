@@ -1,17 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receipes_app_02/components/primary_button.dart';
 import 'package:receipes_app_02/constants/custom_colors.dart';
-import 'package:receipes_app_02/presentation/screens/auth/login_screens.dart';
-import 'package:receipes_app_02/presentation/screens/auth/signup_screen.dart';
 import 'package:receipes_app_02/presentation/screens/splash_screen.dart';
 import 'package:receipes_app_02/providers/theme_provider.dart';
 import 'package:receipes_app_02/themes/app_themes.dart';
+import 'package:receipes_app_02/core/depenpencies_injection.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => ThemeProvider())],
+      providers: DependenciesInjection.providers,
       child: const MyApp(),
     ),
   );

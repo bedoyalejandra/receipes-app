@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:receipes_app_02/presentation/screens/auth/login_screens.dart';
+import 'package:receipes_app_02/presentation/screens/home/home_screen.dart';
+import 'package:receipes_app_02/providers/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -8,6 +12,31 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkAuthState();
+  }
+
+  void _checkAuthState() {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        final authProvider = context.read<AuthProvider>();
+        if (authProvider.authStatus == AuthStatus.authenticated) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
