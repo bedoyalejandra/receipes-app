@@ -11,7 +11,7 @@ class AppThemes {
     ),
     useMaterial3: true,
     brightness: Brightness.light,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: const Color.fromARGB(255, 246, 246, 246),
     appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
     textTheme: TextTheme(
       headlineLarge: TextStyle(

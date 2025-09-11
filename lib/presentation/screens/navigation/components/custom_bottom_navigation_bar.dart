@@ -11,15 +11,17 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return Consumer<NavigationProvider>(
       builder: (context, navigationProvider, child) {
         return BottomAppBar(
+          color: Colors.white,
           notchMargin: 10,
           shape: const CircularNotchedRectangle(),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               NavigationIcon(
                 iconPath:
                     navigationProvider.currentIndex == 0
-                        ? 'assets/icons/home_active.svg'
-                        : 'assets/icons/home.svg',
+                        ? 'assets/icons/house_active.svg'
+                        : 'assets/icons/house.svg',
                 onTap: () => navigationProvider.navigateToIndex(0),
               ),
               NavigationIcon(
@@ -29,7 +31,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                         : 'assets/icons/bookmark.svg',
                 onTap: () => navigationProvider.navigateToIndex(1),
               ),
-
+              SizedBox(width: 40,),
               NavigationIcon(
                 iconPath:
                     navigationProvider.currentIndex == 2
