@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receipes_app_02/presentation/screens/auth/login_screens.dart';
 import 'package:receipes_app_02/presentation/screens/home/home_screen.dart';
+import 'package:receipes_app_02/presentation/screens/navigation/main_navigation_screen.dart';
 import 'package:receipes_app_02/presentation/screens/splash_screen.dart';
 import 'package:receipes_app_02/providers/auth_provider.dart';
 
@@ -20,7 +21,7 @@ class AuthWrapper extends StatelessWidget {
             break;
 
           case AuthStatus.authenticated:
-            targetScreen = HomeScreen();
+            targetScreen = MainNavigationScreen();
             break;
 
           case AuthStatus.unauthenticated:
