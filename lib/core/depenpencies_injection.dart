@@ -10,10 +10,12 @@ import 'package:receipes_app_02/domain/repositories/user_repository.dart';
 import 'package:receipes_app_02/domain/usecases/sign_in_usecase.dart';
 import 'package:receipes_app_02/domain/usecases/sign_out_usecase.dart';
 import 'package:receipes_app_02/domain/usecases/sign_up_usecase.dart';
+import 'package:receipes_app_02/domain/usecases/update_profile_usecase.dart';
 import 'package:receipes_app_02/providers/auth_provider.dart' as auth_provider;
 import 'package:receipes_app_02/providers/navigation_provider.dart';
 import 'package:receipes_app_02/providers/theme_provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:receipes_app_02/providers/user_provider.dart';
 
 class DependenciesInjection {
   static List<SingleChildWidget> get providers {
@@ -33,6 +35,9 @@ class DependenciesInjection {
       userRepository,
     );
     final SignOutUsecase signOutUsecase = SignOutUsecase(authRepository);
+    final UpdateProfileUseCase updateProfileUseCase = UpdateProfileUseCase(
+      userRepository,
+    );
 
     return [
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
@@ -48,6 +53,12 @@ class DependenciesInjection {
       ),
       ChangeNotifierProvider(
         create: (context) => NavigationProvider(navigationRepository),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => UserProvider(
+          updateProfileUseCase,
+          userRepository,
+        ),
       ),
     ];
   }

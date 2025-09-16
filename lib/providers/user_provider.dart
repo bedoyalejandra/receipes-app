@@ -72,4 +72,6 @@ class UserProvider extends ChangeNotifier {
     _userState = status;
     notifyListeners();
   }
+
+  void loadUserData(UserEntity user) {}
 }
