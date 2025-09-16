@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receipes_app_02/presentation/screens/navigation/components/custom_bottom_navigation_bar.dart';
+import 'package:receipes_app_02/presentation/screens/receipes/create_receipe_screen.dart';
 import 'package:receipes_app_02/providers/navigation_provider.dart';
 
 class MainNavigationScreen extends StatelessWidget {
@@ -23,11 +24,14 @@ class MainNavigationScreen extends StatelessWidget {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              print('pressed');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CreateReceipeScreen()),
+              );
             },
             backgroundColor: Theme.of(context).colorScheme.primary,
             shape: const CircleBorder(),
-            child: const Icon(Icons.add, size: 28, color: Colors.white,),
+            child: const Icon(Icons.add, size: 28, color: Colors.white),
           ),
 
           bottomNavigationBar: CustomBottomNavigationBar(),
