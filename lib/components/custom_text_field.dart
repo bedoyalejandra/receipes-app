@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
   CustomTextField({
@@ -9,14 +10,22 @@ class CustomTextField extends StatefulWidget {
     this.controller,
     this.placeholder,
     this.validator,
+    this.maxLines,
+    this.prefixIcon,
+    this.inputFormatters,
+    this.onChanged,
   }) : super(key: key);
-  
+
   String label;
   bool isPassword;
   TextInputType keyboardType;
   TextEditingController? controller;
   String? placeholder;
   String? Function(String?)? validator;
+  int? maxLines;
+  Icon? prefixIcon;
+  List<TextInputFormatter>? inputFormatters;
+  String? Function(String?)? onChanged;
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -47,8 +56,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
           obscureText: _isObscured,
           controller: widget.controller,
           keyboardType: widget.keyboardType,
+          inputFormatters: widget.inputFormatters,
           validator: widget.validator,
+          maxLines: widget.maxLines,
           decoration: InputDecoration(
+            prefixIcon: widget.prefixIcon,
             labelText: widget.placeholder,
             labelStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -62,6 +74,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     )
                     : null,
           ),
+          onChanged: widget.onChanged,
         ),
       ],
     );
