@@ -2,10 +2,10 @@ import 'package:receipes_app_02/constants/validators.dart';
 import 'package:receipes_app_02/domain/entities/user_entity.dart';
 import 'package:receipes_app_02/domain/repositories/user_repository.dart';
 
-class UpdateProfileUsecase {
+class UpdateProfileUseCase {
   final UserRepository _userRepository;
 
-  UpdateProfileUsecase(this._userRepository);
+  UpdateProfileUseCase(this._userRepository);
 
   Future<String?> execute({
     required UserEntity user,
