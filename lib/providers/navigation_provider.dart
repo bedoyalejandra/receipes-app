@@ -17,7 +17,7 @@ class NavigationProvider extends ChangeNotifier {
   Widget get currentScreen => currentItem?.screen ?? const SizedBox.shrink();
 
   void navigateToIndex(int index) {
-    if(index > 0 && index < navigationItems.length) {
+    if(index >= 0 && index < navigationItems.length) {
       _currentIndex = index;
       notifyListeners();
     }
