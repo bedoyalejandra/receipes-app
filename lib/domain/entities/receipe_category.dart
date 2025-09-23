@@ -21,7 +21,7 @@ enum RecipeCategory {
   other('Other');
 
   const RecipeCategory(this.displayName);
-
+  
   final String displayName;
 
   static RecipeCategory fromString(String value) {
@@ -32,5 +32,6 @@ enum RecipeCategory {
   }
 
   String toJson() => name;
+
   static RecipeCategory fromJson(String json) => fromString(json);
 }
