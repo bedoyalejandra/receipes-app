@@ -1,0 +1,145 @@
+{
+    "ingredients": [
+      {
+        "id": "1",
+        "name": "Tomato",
+        "imageUrl": "assets/images/ingredients/tomato.png",
+        "description": "Fresh red tomatoes, perfect for salads and cooking",
+        "isCustom": false
+      },
+      {
+        "id": "2",
+        "name": "Onion",
+        "imageUrl": "assets/images/ingredients/onion.png",
+        "description": "Yellow onions, great for adding flavor to dishes",
+        "isCustom": false
+      },
+      {
+        "id": "3",
+        "name": "Garlic",
+        "imageUrl": "assets/images/ingredients/garlic.png",
+        "description": "Fresh garlic cloves for aromatic cooking",
+        "isCustom": false
+      },
+      {
+        "id": "4",
+        "name": "Olive Oil",
+        "imageUrl": "assets/images/ingredients/olive_oil.png",
+        "description": "Extra virgin olive oil for cooking and dressing",
+        "isCustom": false
+      },
+      {
+        "id": "5",
+        "name": "Salt",
+        "imageUrl": "assets/images/ingredients/salt.png",
+        "description": "Sea salt for seasoning",
+        "isCustom": false
+      },
+      {
+        "id": "6",
+        "name": "Black Pepper",
+        "imageUrl": "assets/images/ingredients/black_pepper.png",
+        "description": "Freshly ground black pepper",
+        "isCustom": false
+      },
+      {
+        "id": "7",
+        "name": "Chicken Breast",
+        "imageUrl": "assets/images/ingredients/chicken_breast.png",
+        "description": "Boneless, skinless chicken breast",
+        "isCustom": false
+      },
+      {
+        "id": "8",
+        "name": "Rice",
+        "imageUrl": "assets/images/ingredients/rice.png",
+        "description": "Long grain white rice",
+        "isCustom": false
+      },
+      {
+        "id": "9",
+        "name": "Pasta",
+        "imageUrl": "assets/images/ingredients/pasta.png",
+        "description": "Italian pasta - spaghetti or penne",
+        "isCustom": false
+      },
+      {
+        "id": "10",
+        "name": "Cheese",
+        "imageUrl": "assets/images/ingredients/cheese.png",
+        "description": "Parmesan or mozzarella cheese",
+        "isCustom": false
+      },
+      {
+        "id": "11",
+        "name": "Basil",
+        "imageUrl": "assets/images/ingredients/basil.png",
+        "description": "Fresh basil leaves",
+        "isCustom": false
+      },
+      {
+        "id": "12",
+        "name": "Lemon",
+        "imageUrl": "assets/images/ingredients/lemon.png",
+        "description": "Fresh lemons for juice and zest",
+        "isCustom": false
+      },
+      {
+        "id": "13",
+        "name": "Butter",
+        "imageUrl": "assets/images/ingredients/butter.png",
+        "description": "Unsalted butter for cooking",
+        "isCustom": false
+      },
+      {
+        "id": "14",
+        "name": "Flour",
+        "imageUrl": "assets/images/ingredients/flour.png",
+        "description": "All-purpose flour for baking",
+        "isCustom": false
+      },
+      {
+        "id": "15",
+        "name": "Eggs",
+        "imageUrl": "assets/images/ingredients/eggs.png",
+        "description": "Fresh chicken eggs",
+        "isCustom": false
+      },
+      {
+        "id": "16",
+        "name": "Milk",
+        "imageUrl": "assets/images/ingredients/milk.png",
+        "description": "Whole milk for cooking and baking",
+        "isCustom": false
+      },
+      {
+        "id": "17",
+        "name": "Bell Pepper",
+        "imageUrl": "assets/images/ingredients/bell_pepper.png",
+        "description": "Colorful bell peppers - red, yellow, or green",
+        "isCustom": false
+      },
+      {
+        "id": "18",
+        "name": "Mushrooms",
+        "imageUrl": "assets/images/ingredients/mushrooms.png",
+        "description": "Fresh button or cremini mushrooms",
+        "isCustom": false
+      },
+      {
+        "id": "19",
+        "name": "Carrots",
+        "imageUrl": "assets/images/ingredients/carrots.png",
+        "description": "Fresh carrots for cooking and salads",
+        "isCustom": false
+      },
+      {
+        "id": "20",
+        "name": "Potatoes",
+        "imageUrl": "assets/images/ingredients/potatoes.png",
+        "description": "Russet or Yukon Gold potatoes",
+        "isCustom": false
+      }
+    ]
+  }
+  
