@@ -5,7 +5,7 @@ class RecipeIngredient {
   final String id;
   final Ingredient ingredient;
   final String quantity;
-  final MeasurementUnit measurementUnit;
+  final MeasurementUnit? measurementUnit;
 
   const RecipeIngredient({
     required this.id,
