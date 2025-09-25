@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:receipes_app_02/constants/spacing.dart';
 import 'package:receipes_app_02/presentation/screens/receipes/recipe_basic_information_form.dart';
+import 'package:receipes_app_02/providers/auth_provider.dart';
+import 'package:receipes_app_02/providers/ingredients_selection_provider.dart';
+import 'package:receipes_app_02/providers/recipe_creation_provider.dart';
 
 class CreateRecipeScreen extends StatefulWidget {
   CreateRecipeScreen({Key? key}) : super(key: key);
@@ -13,6 +17,20 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   int _totalSteps = 3;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<IngredientsSelectionProvider>().loadPredefinedIngredients();
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   _goToNextPage() {
     if (_currentPage < _totalSteps - 1) {
@@ -28,6 +46,44 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
       _pageController.previousPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  Future<void> _saveRecipe() async {
+    final recipeCreationProvider = context.read<RecipeCreationProvider>();
+    final authProvider = context.read<AuthProvider>();
+
+    final String? userId = authProvider.currentUser!.id;
+
+    if (userId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please sign in to create a recipe'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    await recipeCreationProvider.createRecipe(userId);
+
+    if (recipeCreationProvider.errorMessage == null && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Recipe created successfully'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Navigator.of(context).pop(true);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Failed to create recipe ${recipeCreationProvider.errorMessage}',
+          ),
+          backgroundColor: Colors.red,
+        ),
       );
     }
   }
@@ -103,29 +159,42 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                     ),
                   ],
                 ),
-                child: Row(
-                  children: [
-                    if (_currentPage > 0) ...[
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: _goToPreviousPage,
-                          child: const Text('Previous'),
-                        ),
-                      ),
-                      SizedBox(width: 15),
-                    ],
-                    Expanded(
-                      child: _currentPage < _totalSteps - 1
-                          ? ElevatedButton(
-                              onPressed: _goToNextPage,
-                              child: const Text('Next'),
-                            )
-                          : ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Create'),
+                child: Consumer<RecipeCreationProvider>(
+                  builder: (context, provider, child) {
+                    return Row(
+                      children: [
+                        if (_currentPage > 0) ...[
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: _goToPreviousPage,
+                              child: const Text('Previous'),
                             ),
-                    ),
-                  ],
+                          ),
+                          SizedBox(width: 15),
+                        ],
+                        Expanded(
+                          child:
+                              _currentPage < _totalSteps - 1
+                                  ? ElevatedButton(
+                                    onPressed: _goToNextPage,
+                                    child: const Text('Next'),
+                                  )
+                                  : ElevatedButton(
+                                    onPressed:
+                                        provider.canSaveRecipe &&
+                                                !provider.isLoading
+                                            ? _saveRecipe
+                                            : null,
+                                    child: Text(
+                                      provider.isLoading
+                                          ? 'Saving...'
+                                          : 'Save Recipe',
+                                    ),
+                                  ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ],
