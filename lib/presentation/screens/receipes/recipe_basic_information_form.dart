@@ -3,16 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:receipes_app_02/components/custom_text_field.dart';
 import 'package:receipes_app_02/domain/entities/receipe_category.dart';
 
-class ReceipeBasicInformationForm extends StatefulWidget {
-  ReceipeBasicInformationForm({Key? key}) : super(key: key);
+class RecipeBasicInformationForm extends StatefulWidget {
+  RecipeBasicInformationForm({Key? key}) : super(key: key);
 
   @override
-  _ReceipeBasicInformationFormState createState() =>
-      _ReceipeBasicInformationFormState();
+  _RecipeBasicInformationFormState createState() =>
+      _RecipeBasicInformationFormState();
 }
 
-class _ReceipeBasicInformationFormState
-    extends State<ReceipeBasicInformationForm> {
+class _RecipeBasicInformationFormState
+    extends State<RecipeBasicInformationForm> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _cookingTimeController = TextEditingController();

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:receipes_app_02/constants/spacing.dart';
-import 'package:receipes_app_02/presentation/screens/receipes/receipe_basic_information_form.dart';
+import 'package:receipes_app_02/presentation/screens/receipes/recipe_basic_information_form.dart';
 
-class CreateReceipeScreen extends StatefulWidget {
-  CreateReceipeScreen({Key? key}) : super(key: key);
+class CreateRecipeScreen extends StatefulWidget {
+  CreateRecipeScreen({Key? key}) : super(key: key);
 
   @override
-  _CreateReceipeScreenState createState() => _CreateReceipeScreenState();
+  _CreateRecipeScreenState createState() => _CreateRecipeScreenState();
 }
 
-class _CreateReceipeScreenState extends State<CreateReceipeScreen> {
+class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   int _totalSteps = 3;
@@ -87,7 +87,7 @@ class _CreateReceipeScreenState extends State<CreateReceipeScreen> {
                       _currentPage = index;
                     });
                   },
-                  children: [ReceipeBasicInformationForm()],
+                  children: [RecipeBasicInformationForm()],
                 ),
               ),
 

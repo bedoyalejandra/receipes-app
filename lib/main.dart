@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receipes_app_02/components/primary_button.dart';
 import 'package:receipes_app_02/constants/custom_colors.dart';
+import 'package:receipes_app_02/presentation/screens/receipes/create_recipe_screen.dart';
 import 'package:receipes_app_02/presentation/screens/splash_screen.dart';
 import 'package:receipes_app_02/presentation/wrappers/auth_wrapper.dart';
 import 'package:receipes_app_02/providers/theme_provider.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
           darkTheme: AppThemes.darkTheme,
           themeMode:
               themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          home: AuthWrapper(),
+          home: CreateRecipeScreen(),
         );
       },
     );
