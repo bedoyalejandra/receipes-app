@@ -52,10 +52,10 @@ class ImagePickerService {
                 ListTile(
                   leading: const Icon(Icons.camera),
                   title: const Text('Camera'),
-                  onTap: () {
+                  onTap: () async {
                     try {
-                      pickImage(ImageSource.camera);
-                      Navigator.pop(context);
+                      final image = await pickImage(ImageSource.camera);
+                      Navigator.pop(context, image);
                     } catch (e) {
                       print(e);
                       _showErrorDialog(context, e.toString());
@@ -66,10 +66,10 @@ class ImagePickerService {
                 ListTile(
                   leading: const Icon(Icons.photo),
                   title: const Text('Gallery'),
-                  onTap: () {
+                  onTap: () async {
                     try {
-                      pickImage(ImageSource.gallery);
-                      Navigator.pop(context);
+                      final image = await pickImage(ImageSource.gallery);
+                      Navigator.pop(context, image);
                     } catch (e) {
                       print(e);
                       _showErrorDialog(context, e.toString());
