@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:receipes_app_02/presentation/screens/receipes/widgets/custom_ingredient_dialog.dart';
 import 'package:receipes_app_02/presentation/screens/receipes/widgets/ingredient_selection_dialog.dart';
 import 'package:receipes_app_02/providers/recipe_creation_provider.dart';
 
@@ -45,5 +46,10 @@ class RecipeIngredientsSection extends StatelessWidget {
     );
   }
 
-  _showCustomIngredientsSectionDialog(BuildContext context) {}
+  _showCustomIngredientsSectionDialog(BuildContext context) {
+        showDialog(
+      context: context,
+      builder: (context) => CustomIngredientDialog(),
+    );
+  }
 }
