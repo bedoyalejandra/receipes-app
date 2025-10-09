@@ -30,16 +30,18 @@ class RecipeIngredient {
 
   toJson() => {
     'id': id,
-    'ingredient': ingredient,
+    'ingredient': ingredient.toJson(),
     'quantity': quantity,
-    'measurementUnit': measurementUnit,
+    'measurementUnit': measurementUnit?.toJson(),
   };
 
   factory RecipeIngredient.fromJson(Map<String, dynamic> json) => RecipeIngredient(
     id: json['id'],
-    ingredient: json['ingredient'],
+    ingredient: Ingredient.fromJson(json['ingredient'] as Map<String, dynamic>),
     quantity: json['quantity'],
-    measurementUnit: json['measurementUnit'],
+    measurementUnit: json['measurementUnit'] != null 
+        ? MeasurementUnit.fromJson(json['measurementUnit'] as String)
+        : null,
   );
 
   @override

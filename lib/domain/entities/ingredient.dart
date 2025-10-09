@@ -38,11 +38,11 @@ class Ingredient {
   };
 
   factory Ingredient.fromJson(Map<String, dynamic> json) => Ingredient(
-    id: json['id'],
-    name: json['name'],
-    imageUrl: json['imageUrl'],
-    description: json['description'],
-    isCustom: json['isCustom'],
+    id: json['id'].toString(),
+    name: json['name'] as String,
+    imageUrl: json['imageUrl'] as String?,
+    description: json['description'] as String?,
+    isCustom: json['isCustom'] as bool? ?? false,
   );
 
   @override

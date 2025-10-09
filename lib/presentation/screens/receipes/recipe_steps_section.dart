@@ -61,6 +61,7 @@ class RecipeStepsSection extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.all(Spacing.padding),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
