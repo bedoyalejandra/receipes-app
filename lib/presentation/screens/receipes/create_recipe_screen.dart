@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:receipes_app_02/constants/spacing.dart';
 import 'package:receipes_app_02/presentation/screens/receipes/recipe_basic_information_form.dart';
 import 'package:receipes_app_02/presentation/screens/receipes/recipe_ingredients_section.dart';
+import 'package:receipes_app_02/presentation/screens/receipes/recipe_steps_section.dart';
 import 'package:receipes_app_02/providers/auth_provider.dart';
 import 'package:receipes_app_02/providers/ingredients_selection_provider.dart';
 import 'package:receipes_app_02/providers/recipe_creation_provider.dart';
@@ -147,6 +148,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                   children: [
                     RecipeBasicInformationForm(),
                     RecipeIngredientsSection(),
+                    RecipeStepsSection(),
                   ],
                 ),
               ),

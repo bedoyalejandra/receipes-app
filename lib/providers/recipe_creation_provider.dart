@@ -178,7 +178,7 @@ class RecipeCreationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addStep(String title, String description) {
+  void addStep(String title, String? description) {
     final recipeStep = RecipeStep(
       id: uuid.v4(),
       title: title,
@@ -198,7 +198,7 @@ class RecipeCreationProvider extends ChangeNotifier {
     }
   }
 
-  void updateStep(String id, String title, String description) {
+  void updateStep(String id, String title, String? description) {
     final index = _steps.indexWhere((step) => step.id == id);
     if (index != -1) {
       _steps[index] = _steps[index].copyWith(
