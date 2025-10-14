@@ -183,7 +183,7 @@ class RecipeStepsSection extends StatelessWidget {
         return AlertDialog(
           backgroundColor: Colors.white,
           title: Text(
-            step != null ? 'Add Step' : 'Edit step ${step?.stepNumber}',
+            step == null ? 'Add Step' : 'Edit step ${step.stepNumber}',
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,

@@ -130,12 +130,14 @@ class RecipeCard extends StatelessWidget {
 
 Widget _buildImagePlaceholder(BuildContext context) {
   return Container(
+    height: 200,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
-      color: Theme.of(context).colorScheme.surfaceVariant,
+      borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      color: Colors.grey.shade200,
     ),
     child: Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
             Icons.restaurant_menu,
