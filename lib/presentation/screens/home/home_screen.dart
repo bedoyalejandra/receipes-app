@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:receipes_app_02/domain/entities/receipe_category.dart';
+import 'package:receipes_app_02/presentation/screens/home/widgets/custom_filter_chip.dart';
 import 'package:receipes_app_02/providers/auth_provider.dart';
+import 'package:receipes_app_02/providers/recipe_display_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -10,6 +13,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<RecipeDisplayProvider>().getAllRecipes();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             Text(
                               'What are you cooking today?',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey.shade600),
+                              style: Theme.of(context).textTheme.bodyLarge
+                                  ?.copyWith(color: Colors.grey.shade600),
                             ),
                           ],
                         );
@@ -43,6 +55,52 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     IconButton(onPressed: () {}, icon: Icon(Icons.message)),
                   ],
+                ),
+                SizedBox(height: 20),
+                Consumer<RecipeDisplayProvider>(
+                  builder: (context, provider, child) {
+                    return Column(
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              CustomFilterChip(
+                                label: 'All',
+                                isSelected: provider.selectedCategory == null,
+                                onSelected: (selected) {
+                                  if (selected) {
+                                    provider.filteeByCategory(null);
+                                    provider.getAllRecipes();
+                                  }
+                                },
+                              ),
+                              SizedBox(width: 4),
+                              ...RecipeCategory.values.map((category) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 4),
+                                  child: CustomFilterChip(
+                                    label: category.displayName,
+                                    isSelected:
+                                        provider.selectedCategory == category,
+                                    onSelected: (selected) {
+                                      if (selected) {
+                                        provider.filteeByCategory(
+                                          selected ? category : null,
+                                        );
+                                        provider.getAllRecipes();
+                                      }
+                                    },
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),

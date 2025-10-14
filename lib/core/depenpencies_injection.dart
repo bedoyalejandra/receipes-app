@@ -12,7 +12,9 @@ import 'package:receipes_app_02/domain/repositories/navigation_repository.dart';
 import 'package:receipes_app_02/domain/repositories/recipe_repository.dart';
 import 'package:receipes_app_02/domain/repositories/user_repository.dart';
 import 'package:receipes_app_02/domain/usecases/create_recipe_usecase.dart';
+import 'package:receipes_app_02/domain/usecases/get_all_recipes_usecase.dart';
 import 'package:receipes_app_02/domain/usecases/get_predefined_ingredients_usecase.dart';
+import 'package:receipes_app_02/domain/usecases/get_user_recipes_usecase.dart';
 import 'package:receipes_app_02/domain/usecases/seach_predefined_ingredients_isecase.dart';
 import 'package:receipes_app_02/domain/usecases/sign_in_usecase.dart';
 import 'package:receipes_app_02/domain/usecases/sign_out_usecase.dart';
@@ -22,6 +24,7 @@ import 'package:receipes_app_02/providers/auth_provider.dart' as auth_provider;
 import 'package:receipes_app_02/providers/ingredients_selection_provider.dart';
 import 'package:receipes_app_02/providers/navigation_provider.dart';
 import 'package:receipes_app_02/providers/recipe_creation_provider.dart';
+import 'package:receipes_app_02/providers/recipe_display_provider.dart';
 import 'package:receipes_app_02/providers/theme_provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:receipes_app_02/providers/user_provider.dart';
@@ -65,6 +68,12 @@ class DependenciesInjection {
       ingredientRepository: ingredientRepository,
     );
 
+    final GetAllRecipesUseCase getAllRecipesUseCase = GetAllRecipesUseCase(
+      recipeRepository: recipeRepository,
+    );
+    final GetUserRecipesUseCase getUserRecipesUseCase = GetUserRecipesUseCase(
+      recipeRepository: recipeRepository,
+    );
     return [
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ChangeNotifierProvider(
@@ -95,6 +104,14 @@ class DependenciesInjection {
               getPredefinedIngredientsUseCase: getPredefinedIngredientsUseCase,
               searchPredefinedIngredientsUseCase:
                   searchPredefinedIngredientsUseCase,
+            ),
+      ),
+
+      ChangeNotifierProvider(
+        create:
+            (context) => RecipeDisplayProvider(
+              getAllRecipesUseCase: getAllRecipesUseCase,
+              getUserRecipesUseCase: getUserRecipesUseCase,
             ),
       ),
     ];

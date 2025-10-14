@@ -56,7 +56,7 @@ class RecipeDisplayProvider extends ChangeNotifier {
     }
   }
 
-  void filteeByCategory(RecipeCategory category) {
+  void filteeByCategory(RecipeCategory? category) {
     if (_selectedCategory != category) {
       _selectedCategory = category;
       notifyListeners();
