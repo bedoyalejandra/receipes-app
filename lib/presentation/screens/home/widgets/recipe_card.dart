@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:receipes_app_02/domain/entities/recipe.dart';
 import 'package:receipes_app_02/presentation/screens/home/widgets/stat_chip.dart';
 import 'package:receipes_app_02/utils/date.dart';
+import 'package:receipes_app_02/presentation/screens/receipes/recipe_detail_screen.dart';
 
 class RecipeCard extends StatelessWidget {
   const RecipeCard({Key? key, required this.recipe, this.onTap})
@@ -16,7 +17,14 @@ class RecipeCard extends StatelessWidget {
       elevation: 4,
       margin: const EdgeInsets.only(bottom: 8),
       child: InkWell(
-        onTap: onTap,
+        onTap: onTap ?? () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RecipeDetailScreen(recipe: recipe),
+            ),
+          );
+        },
         borderRadius: BorderRadius.circular(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
