@@ -113,6 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: 'Password',
                     controller: _passwordController,
                     isPassword: true,
+                    maxLines: 1,
                     placeholder: 'Enter password',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
