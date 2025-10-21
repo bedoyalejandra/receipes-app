@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:receipes_app_02/components/custom_text_field.dart';
 import 'package:receipes_app_02/constants/spacing.dart';
+import 'package:receipes_app_02/presentation/screens/home/widgets/recipe_card.dart';
 import 'package:receipes_app_02/providers/auth_provider.dart';
+import 'package:receipes_app_02/providers/recipe_display_provider.dart';
 import 'package:receipes_app_02/providers/user_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -43,6 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _nameController.text = user.name;
       _emailController.text = user.email;
       context.read<UserProvider>().loadUserData(user);
+      context.read<RecipeDisplayProvider>().getUserRecipes(user.id);
     }
   }
 
@@ -227,9 +229,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
+                SizedBox(height: 30),
+                Text(
+                  'My Recipes',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                SizedBox(height: 10),
+                _buildRecipeList(context),
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  Widget _buildRecipeList(BuildContext context) {
+    return Consumer<RecipeDisplayProvider>(
+      builder: (context, provider, child) {
+        return Column(
+          children: [
+            if (provider.state == RecipeDisplayState.loading)
+              Center(child: CircularProgressIndicator()),
+            if (provider.state == RecipeDisplayState.error)
+              Center(
+                child: Column(
+                  children: [
+                    Icon(Icons.error, color: Colors.red),
+                    SizedBox(height: 10),
+                    Text(
+                      'Something went wrong',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleMedium?.copyWith(color: Colors.red),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      provider.errorMessage ?? 'Unknown error',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        provider.clearError();
+                        provider.getAllRecipes();
+                      },
+                      child: Text('Retry'),
+                    ),
+                  ],
+                ),
+              ),
+            if (provider.state == RecipeDisplayState.success)
+              ...provider.recipes.map((recipe) {
+                return RecipeCard(recipe: recipe);
+              }),
+          ],
         );
       },
     );
