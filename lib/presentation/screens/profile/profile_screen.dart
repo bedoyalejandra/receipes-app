@@ -272,7 +272,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ElevatedButton(
                       onPressed: () {
                         provider.clearError();
-                        provider.getAllRecipes();
+                        final authProvider = context.read<AuthProvider>();
+                        final user = authProvider.currentUser;
+                        if (user != null) {
+                          provider.getUserRecipes(user.id);
+                        }
                       },
                       child: Text('Retry'),
                     ),
