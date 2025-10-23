@@ -139,6 +139,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(height: 30),
                   CustomTextField(
                     label: 'Password',
+                    maxLines: 1,
                     controller: _passwordController,
                     isPassword: true,
                     placeholder: 'Enter password',
@@ -155,6 +156,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(height: 30),
                   CustomTextField(
                     label: 'Confirm Password',
+                    maxLines: 1,
                     controller: _confirmPasswordController,
                     isPassword: true,
                     placeholder: 'Retype password',

@@ -104,139 +104,153 @@ class _ProfileScreenState extends State<ProfileScreen> {
         }
         return SingleChildScrollView(
           padding: EdgeInsets.all(Spacing.padding),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Profile',
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        setState(() {
-                          _isEditing = true;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Center(
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: Text(
-                      user.name.isNotEmpty ? user.name[0].toUpperCase() : 'U',
-                      style: TextStyle(
-                        fontSize: 40,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+          child: SafeArea(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Profile',
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              setState(() {
+                                _isEditing = true;
+                              });
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.logout),
+                            onPressed: () {
+                              authProvider.signOut();
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Center(
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: Text(
+                        user.name.isNotEmpty ? user.name[0].toUpperCase() : 'U',
+                        style: TextStyle(
+                          fontSize: 40,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 30),
-                Card(
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Personal Information',
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          controller: _nameController,
-                          enabled: _isEditing,
-                          decoration: InputDecoration(
-                            labelText: 'Name',
-                            prefixIcon: Icon(Icons.person),
-                            border:
-                                _isEditing
-                                    ? OutlineInputBorder()
-                                    : InputBorder.none,
+                  SizedBox(height: 30),
+                  Card(
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Personal Information',
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your name';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          controller: _emailController,
-                          enabled: _isEditing,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            prefixIcon: Icon(Icons.email),
-                            border:
-                                _isEditing
-                                    ? OutlineInputBorder()
-                                    : InputBorder.none,
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 10),
-                        if (_isEditing) ...[
                           SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: OutlinedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _isEditing = false;
-                                      _nameController.text = user.name;
-                                      _emailController.text = user.email;
-                                    });
-                                  },
-                                  child: Text('Cancel'),
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed:
-                                      userProvider.userState ==
-                                              UserState.loading
-                                          ? null
-                                          : _handleUpdateProfile,
-                                  child: Text(
-                                    userProvider.userState == UserState.loading
-                                        ? 'Updating...'
-                                        : 'Update',
+                          TextFormField(
+                            controller: _nameController,
+                            enabled: _isEditing,
+                            decoration: InputDecoration(
+                              labelText: 'Name',
+                              prefixIcon: Icon(Icons.person),
+                              border:
+                                  _isEditing
+                                      ? OutlineInputBorder()
+                                      : InputBorder.none,
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your name';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          TextFormField(
+                            controller: _emailController,
+                            enabled: _isEditing,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              prefixIcon: Icon(Icons.email),
+                              border:
+                                  _isEditing
+                                      ? OutlineInputBorder()
+                                      : InputBorder.none,
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          if (_isEditing) ...[
+                            SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _isEditing = false;
+                                        _nameController.text = user.name;
+                                        _emailController.text = user.email;
+                                      });
+                                    },
+                                    child: Text('Cancel'),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed:
+                                        userProvider.userState ==
+                                                UserState.loading
+                                            ? null
+                                            : _handleUpdateProfile,
+                                    child: Text(
+                                      userProvider.userState ==
+                                              UserState.loading
+                                          ? 'Updating...'
+                                          : 'Update',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 30),
-                Text(
-                  'My Recipes',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                SizedBox(height: 10),
-                _buildRecipeList(context),
-              ],
+                  SizedBox(height: 30),
+                  Text(
+                    'My Recipes',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  SizedBox(height: 10),
+                  _buildRecipeList(context),
+                ],
+              ),
             ),
           ),
         );
