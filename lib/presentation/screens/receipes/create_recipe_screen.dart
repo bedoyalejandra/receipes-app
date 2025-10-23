@@ -7,6 +7,7 @@ import 'package:receipes_app_02/presentation/screens/receipes/recipe_steps_secti
 import 'package:receipes_app_02/providers/auth_provider.dart';
 import 'package:receipes_app_02/providers/ingredients_selection_provider.dart';
 import 'package:receipes_app_02/providers/recipe_creation_provider.dart';
+import 'package:receipes_app_02/providers/recipe_display_provider.dart';
 
 class CreateRecipeScreen extends StatefulWidget {
   CreateRecipeScreen({Key? key}) : super(key: key);
@@ -55,6 +56,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   Future<void> _saveRecipe() async {
     final recipeCreationProvider = context.read<RecipeCreationProvider>();
     final authProvider = context.read<AuthProvider>();
+    final recipeDisplayProvider = context.read<RecipeDisplayProvider>();
 
     final String? userId = authProvider.currentUser!.id;
     final String userName = authProvider.currentUser!.name ?? 'Unknown user';
@@ -72,6 +74,9 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
     await recipeCreationProvider.createRecipe(userId, userName);
 
     if (recipeCreationProvider.errorMessage == null && mounted) {
+      // Refresh the recipe list on home screen
+      await recipeDisplayProvider.getAllRecipes();
+      
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Recipe created successfully'),
