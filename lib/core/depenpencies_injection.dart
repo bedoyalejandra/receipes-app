@@ -119,6 +119,7 @@ class DependenciesInjection {
         create:
             (context) => RecipeCreationProvider(
               createRecipeUseCase: createRecipeUseCase,
+              sendRecipeNotificationUseCase: sendRecipeNotificationUseCase,
             ),
       ),
       ChangeNotifierProvider(

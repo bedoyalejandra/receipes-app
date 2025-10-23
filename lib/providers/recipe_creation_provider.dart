@@ -9,17 +9,19 @@ import 'package:receipes_app_02/domain/entities/recipe.dart';
 import 'package:receipes_app_02/domain/entities/recipe_ingredient.dart';
 import 'package:receipes_app_02/domain/entities/recipe_step.dart';
 import 'package:receipes_app_02/domain/usecases/create_recipe_usecase.dart';
+import 'package:receipes_app_02/domain/usecases/send_recipe_notification_usecase.dart';
 import 'package:receipes_app_02/services/firebase_storage_service.dart';
 import 'package:receipes_app_02/services/image_picker_service.dart';
 import 'package:uuid/uuid.dart';
 
 class RecipeCreationProvider extends ChangeNotifier {
   final CreateRecipeUseCase createRecipeUseCase;
+  final SendRecipeNotificationUseCase sendRecipeNotificationUseCase;
   final FirebaseStorageService firebaseStorageService =
       FirebaseStorageService();
   final Uuid uuid = const Uuid();
 
-  RecipeCreationProvider({required this.createRecipeUseCase});
+  RecipeCreationProvider({required this.createRecipeUseCase, required this.sendRecipeNotificationUseCase});
 
   String _title = '';
   String _description = '';
@@ -218,7 +220,7 @@ class RecipeCreationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> createRecipe(String userId) async {
+  Future<void> createRecipe(String userId, String userName) async {
     final error = _validateRecipe();
     if (error != null) {
       _errorMessage = error;
@@ -262,6 +264,19 @@ class RecipeCreationProvider extends ChangeNotifier {
       );
 
       await createRecipeUseCase.execute(recipe);
+
+      try {
+        await sendRecipeNotificationUseCase.execute(
+          creatorId: userId,
+          creatorName: userName,
+          recipeId: recipe.id,
+          recipeTitle: recipe.title,
+        );
+        
+      } catch (e) {
+        print('Error creating recipe notification: $e');
+        
+      }
     } catch (e) {
       print('Error creating recipe: $e');
       _errorMessage = e.toString();

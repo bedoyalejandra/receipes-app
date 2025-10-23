@@ -57,6 +57,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
     final authProvider = context.read<AuthProvider>();
 
     final String? userId = authProvider.currentUser!.id;
+    final String userName = authProvider.currentUser!.name ?? 'Unknown user';
 
     if (userId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -68,7 +69,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
       return;
     }
 
-    await recipeCreationProvider.createRecipe(userId);
+    await recipeCreationProvider.createRecipe(userId, userName);
 
     if (recipeCreationProvider.errorMessage == null && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
