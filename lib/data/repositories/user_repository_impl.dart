@@ -60,4 +60,17 @@ class UserRepositoryImpl extends UserRepository {
       throw Exception('Failed to delete user profile: ${e.toString()}');
     }
   }
+
+  @override
+  Future<List<UserEntity>> getAllUsers() async {
+    try {
+      final snapshot = await _firestore.collection(_collectionName).get();
+      return snapshot.docs
+          .map((doc) => UserModel.fromJson(doc.data()))
+          .toList();
+    } catch (e) {
+      print('Failed to get all users: ${e.toString()}');
+      throw Exception('Failed to get all users: ${e.toString()}');
+    }
+  }
 }
