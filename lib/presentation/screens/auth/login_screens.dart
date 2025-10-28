@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final authProvider = context.read<AuthProvider>();
     authProvider.signIn(
       email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
+      password: _passwordController.text,
     );
   }
 

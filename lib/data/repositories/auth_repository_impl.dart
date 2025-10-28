@@ -56,6 +56,8 @@ class AuthRepositoryImpl implements AuthRepository {
       } else {
         return AuthResult.failure('Sign in failed');
       }
+    } on FirebaseAuthException catch (e) {
+      return AuthResult.failure(_getErrorMessage(e));
     } catch (e) {
       return AuthResult.failure('Something went wrong: ${e.toString()}');
     }
@@ -106,7 +108,7 @@ class AuthRepositoryImpl implements AuthRepository {
       case 'weak-password':
         return 'The password is too weak.';
       case 'invalid-credential':
-        return 'The email address is not valid.';
+        return 'Invalid email or password. Please check your credentials and try again.';
       case 'user-disabled':
         return 'User is disabled.';
       case 'too-many-requests':

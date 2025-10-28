@@ -76,9 +76,9 @@ class _SignupScreenState extends State<SignupScreen> {
       final authProvider = context.read<AuthProvider>();
       authProvider.signUp(
         email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+        password: _passwordController.text,
         name: _nameController.text.trim(),
-        confirmPassword: _confirmPasswordController.text.trim(),
+        confirmPassword: _confirmPasswordController.text,
       );
     }
   }
