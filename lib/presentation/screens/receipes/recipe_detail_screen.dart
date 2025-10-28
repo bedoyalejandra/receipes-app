@@ -1,28 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:receipes_app_02/components/custom_chip.dart';
-import 'package:receipes_app_02/constants/custom_colors.dart';
 import 'package:receipes_app_02/domain/entities/recipe.dart';
+import 'package:receipes_app_02/providers/recipe_display_provider.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
-  RecipeDetailScreen({Key? key, required this.recipe}) : super(key: key);
-  final Recipe recipe;
+  RecipeDetailScreen({Key? key, this.recipe, this.recipeId}) : super(key: key);
+  final Recipe? recipe;
+  final String? recipeId;
 
   @override
   _RecipeDetailScreenState createState() => _RecipeDetailScreenState();
 }
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
-  late Recipe recipe;
+  late Recipe? recipe;
   String selectedSection = 'ingredients';
+  bool loading = false;
 
   @override
   void initState() {
     super.initState();
-    recipe = widget.recipe;
+    if (widget.recipeId != null) {
+      getRecipeDetail();
+    } else {
+      recipe = widget.recipe!;
+    }
+  }
+
+  getRecipeDetail() async {
+    setState(() {
+      loading = true;
+    });
+    final recipeProvider = context.read<RecipeDisplayProvider>();
+    recipe = await recipeProvider.getRecipeById(widget.recipeId!);
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (loading) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    if (recipe == null) {
+      return Scaffold(
+        body: Center(
+          child: Text('Recipe not found'),
+        ),
+      );
+    }
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -33,12 +65,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: Icon(Icons.arrow_back, size: 24),
-              ),
+              ),    
               SizedBox(
                 height: 200,
                 width: double.infinity,
                 child:
-                    recipe.imageUrl != null
+                    recipe?.imageUrl != null
                         ? ClipRRect(
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                           child: Stack(
@@ -46,7 +78,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               Image.network(
                                 width: double.infinity,
                                 height: 200,
-                                recipe.imageUrl!,
+                                recipe!.imageUrl!,
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) {
                                   return _buildDefaultImage(context);
@@ -64,7 +96,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                     ),
                                     SizedBox(width: 4),
                                     Text(
-                                      '${recipe.cookingTime} min',
+                                      '${recipe!.cookingTime} min',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
@@ -80,15 +112,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ),
               SizedBox(height: 16),
               Text(
-                recipe.title,
+                recipe!.title,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
 
               SizedBox(height: 16),
 
-              if (recipe.description != null) ...[
+              if (recipe!.description != null) ...[
                 Text(
-                  recipe.description!,
+                  recipe!.description!,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: 16),
@@ -136,7 +168,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       ),
                       SizedBox(width: 8),
                       Text(
-                        '${recipe.servings} servings',
+                        '${recipe!.servings} servings',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
@@ -145,8 +177,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ),
                   Text(
                     selectedSection == 'ingredients'
-                        ? '${recipe.ingredients.length} Items'
-                        : '${recipe.steps.length} Steps',
+                        ? '${recipe!.ingredients.length} Items'
+                        : '${recipe!.steps.length} Steps',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -157,9 +189,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               SizedBox(height: 30),
 
               if (selectedSection == 'ingredients')
-                _buildIngredientsList(context, recipe),
+                _buildIngredientsList(context, recipe!),
               if (selectedSection == 'procedure')
-                _buildProcedureList(context, recipe),
+                _buildProcedureList(context, recipe!),
             ],
           ),
         ),
@@ -191,7 +223,7 @@ Widget _buildIngredientsList(BuildContext context, Recipe recipe) {
                   ),
                   padding: const EdgeInsets.all(8),
                   child:
-                      ingredient.ingredient.imageUrl != null
+                      ingredient!.ingredient.imageUrl != null
                           ? Image.network(
                             ingredient.ingredient.imageUrl!,
                             height: 50,

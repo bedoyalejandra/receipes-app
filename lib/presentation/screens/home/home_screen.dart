@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   isSelected: provider.selectedCategory == null,
                                   onSelected: (selected) {
                                     if (selected) {
-                                      provider.filteeByCategory(null);
+                                      provider.filterByCategory(null);
                                       provider.getAllRecipes();
                                     }
                                   },
@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           provider.selectedCategory == category,
                                       onSelected: (selected) {
                                         if (selected) {
-                                          provider.filteeByCategory(
+                                          provider.filterByCategory(
                                             selected ? category : null,
                                           );
                                           provider.getAllRecipes();

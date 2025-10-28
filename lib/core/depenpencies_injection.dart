@@ -18,6 +18,7 @@ import 'package:receipes_app_02/domain/usecases/get_all_recipes_usecase.dart';
 import 'package:receipes_app_02/domain/usecases/get_notifications.dart';
 import 'package:receipes_app_02/domain/usecases/get_notifications_stream_usecase.dart';
 import 'package:receipes_app_02/domain/usecases/get_predefined_ingredients_usecase.dart';
+import 'package:receipes_app_02/domain/usecases/get_recipe_by_id.dart';
 import 'package:receipes_app_02/domain/usecases/get_unread_notifications_count_stream.dart';
 import 'package:receipes_app_02/domain/usecases/get_user_recipes_usecase.dart';
 import 'package:receipes_app_02/domain/usecases/mark_notifications_as_read_usecase.dart';
@@ -84,6 +85,9 @@ class DependenciesInjection {
     final GetUserRecipesUseCase getUserRecipesUseCase = GetUserRecipesUseCase(
       recipeRepository: recipeRepository,
     );
+    final GetRecipeByIdUseCase getRecipeByIdUseCase = GetRecipeByIdUseCase(
+      recipeRepository: recipeRepository,
+    );
 
     final GetNotificationsUseCase getNotificationsUseCase =
         GetNotificationsUseCase(notificationsRepository);
@@ -136,6 +140,7 @@ class DependenciesInjection {
             (context) => RecipeDisplayProvider(
               getAllRecipesUseCase: getAllRecipesUseCase,
               getUserRecipesUseCase: getUserRecipesUseCase,
+              getRecipeByIdUseCase: getRecipeByIdUseCase,
             ),
       ),
       ChangeNotifierProvider(

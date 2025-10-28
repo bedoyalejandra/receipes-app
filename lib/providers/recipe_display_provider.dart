@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:receipes_app_02/domain/entities/receipe_category.dart';
 import 'package:receipes_app_02/domain/entities/recipe.dart';
 import 'package:receipes_app_02/domain/usecases/get_all_recipes_usecase.dart';
+import 'package:receipes_app_02/domain/usecases/get_recipe_by_id.dart';
 import 'package:receipes_app_02/domain/usecases/get_user_recipes_usecase.dart';
 
 enum RecipeDisplayState { initial, loading, success, error }
@@ -9,12 +10,15 @@ enum RecipeDisplayState { initial, loading, success, error }
 class RecipeDisplayProvider extends ChangeNotifier {
   final GetAllRecipesUseCase _getAllRecipesUseCase;
   final GetUserRecipesUseCase _getUserRecipesUseCase;
+  final GetRecipeByIdUseCase _getRecipeByIdUseCase;
 
   RecipeDisplayProvider({
     required GetAllRecipesUseCase getAllRecipesUseCase,
     required GetUserRecipesUseCase getUserRecipesUseCase,
+    required GetRecipeByIdUseCase getRecipeByIdUseCase,
   }) : _getAllRecipesUseCase = getAllRecipesUseCase,
-       _getUserRecipesUseCase = getUserRecipesUseCase;
+       _getUserRecipesUseCase = getUserRecipesUseCase,
+       _getRecipeByIdUseCase = getRecipeByIdUseCase;
 
   RecipeDisplayState _state = RecipeDisplayState.initial;
   List<Recipe> _recipes = [];
@@ -56,7 +60,17 @@ class RecipeDisplayProvider extends ChangeNotifier {
     }
   }
 
-  void filteeByCategory(RecipeCategory? category) {
+  Future<Recipe?> getRecipeById(String recipeId) async {
+    try {
+      return await _getRecipeByIdUseCase.execute(recipeId);
+    } catch (e) {
+      _errorMessage = e.toString();
+      _setState(RecipeDisplayState.error);
+    }
+    return null;
+  }
+
+  void filterByCategory(RecipeCategory? category) {
     if (_selectedCategory != category) {
       _selectedCategory = category;
       notifyListeners();

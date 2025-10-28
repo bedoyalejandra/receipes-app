@@ -5,6 +5,7 @@ import 'package:receipes_app_02/components/custom_chip.dart';
 import 'package:receipes_app_02/components/primary_button.dart';
 import 'package:receipes_app_02/constants/spacing.dart';
 import 'package:receipes_app_02/presentation/screens/notifications/widgets/notification_card.dart';
+import 'package:receipes_app_02/presentation/screens/receipes/recipe_detail_screen.dart';
 import 'package:receipes_app_02/providers/auth_provider.dart';
 import 'package:receipes_app_02/providers/notifications_provider.dart';
 
@@ -21,6 +22,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   void initState() {
     super.initState();
+
+    _scrollController.addListener(_onScroll);
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final authProvider = context.read<AuthProvider>();
       final notificationsProvider = context.read<NotificationsProvider>();
@@ -31,6 +35,25 @@ class _NotificationScreenState extends State<NotificationScreen> {
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent * 0.8) {
+      final authProvider = context.read<AuthProvider>();
+      final notificationsProvider = context.read<NotificationsProvider>();
+      if (authProvider.currentUser != null && notificationsProvider.hasMore) {
+        notificationsProvider.loadMoreNotifications(
+          authProvider.currentUser!.id,
+        );
+      }
+    }
   }
 
   @override
@@ -144,8 +167,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           return NotificationCard(
                             notification: notification,
                             onTap: () async {
-                              await provider.markNotificationsAsRead(notification.id);
-                              //TODO: navigate to recipe screen
+                              await provider.markNotificationsAsRead(
+                                notification.id,
+                              );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) => RecipeDetailScreen(
+                                        recipeId: notification.recipeId,
+                                      ),
+                                ),
+                              );
                             },
                           );
                         },
