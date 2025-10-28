@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:receipes_app_02/components/custom_chip.dart';
 import 'package:receipes_app_02/constants/custom_colors.dart';
 import 'package:receipes_app_02/domain/entities/recipe.dart';
 
@@ -96,8 +97,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: _buildSectionChip(
-                      context,
+                    child: CustomChip(
                       label: 'Ingredients',
                       isSelected: selectedSection == 'ingredients',
                       onTap: () {
@@ -109,8 +109,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ),
                   SizedBox(width: 8),
                   Expanded(
-                    child: _buildSectionChip(
-                      context,
+                    child: CustomChip(
                       label: 'Procedure',
                       isSelected: selectedSection == 'procedure',
                       onTap: () {
@@ -273,33 +272,6 @@ Widget _buildProcedureList(BuildContext context, Recipe recipe) {
           ),
         );
       },
-    ),
-  );
-}
-
-Widget _buildSectionChip(
-  BuildContext context, {
-  required String label,
-  required bool isSelected,
-  required VoidCallback onTap,
-}) {
-  return InkWell(
-    onTap: onTap,
-    child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-      decoration: BoxDecoration(
-        color: isSelected ? CustomColors.primaryColor : Colors.transparent,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Center(
-        child: Text(
-          label,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: isSelected ? Colors.white : CustomColors.primaryColor,
-          ),
-        ),
-      ),
     ),
   );
 }
