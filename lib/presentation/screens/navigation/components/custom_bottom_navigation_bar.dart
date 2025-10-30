@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:receipes_app_02/presentation/screens/navigation/components/navigation_icon.dart';
 import 'package:receipes_app_02/providers/navigation_provider.dart';
+import 'package:receipes_app_02/providers/notifications_provider.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<NavigationProvider>(
-      builder: (context, navigationProvider, child) {
+    return Consumer2<NavigationProvider, NotificationsProvider>(
+      builder: (context, navigationProvider, notificationsProvider, child) {
         return BottomAppBar(
           color: Colors.white,
           notchMargin: 10,
@@ -31,8 +32,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
                         : 'assets/icons/bookmark.svg',
                 onTap: () => navigationProvider.navigateToIndex(1),
               ),
-              SizedBox(width: 40,),
+              SizedBox(width: 40),
               NavigationIcon(
+                badgeCount: notificationsProvider.unreadNotificationsCount,
                 iconPath:
                     navigationProvider.currentIndex == 2
                         ? 'assets/icons/notifications_active.svg'
