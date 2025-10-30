@@ -127,8 +127,10 @@ class NotificationsProvider extends ChangeNotifier {
 
       if (index != -1) {
         _notifications[index] = _notifications[index].copyWith(isRead: true);
+        _unreadNotificationsCount--;
         notifyListeners();
       }
+
     } catch (e) {
       print('Error marking notifications as read: $e');
     }
