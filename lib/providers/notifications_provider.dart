@@ -147,8 +147,6 @@ class NotificationsProvider extends ChangeNotifier {
         return _notifications.where((n) => !n.isRead).toList();
       case NotificationFilter.read:
         return _notifications.where((n) => n.isRead).toList();
-      default:
-        return _notifications;
     }
   }
 

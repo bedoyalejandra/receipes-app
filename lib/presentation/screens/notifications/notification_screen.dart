@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:receipes_app_02/components/custom_chip.dart';
 import 'package:receipes_app_02/components/primary_button.dart';
@@ -63,7 +62,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         padding: const EdgeInsets.all(Spacing.padding),
         child: Consumer<NotificationsProvider>(
           builder: (context, provider, child) {
-            final notifications = provider.notifications;
+            final notifications = provider.filteredNotifications;
 
             return Column(
               children: [
